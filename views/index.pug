@@ -2,9 +2,20 @@ html
 body
     form(action="/upload", method="post",  enctype="multipart/form-data") 
         p Upload mp3
-        input#file(type='file', name='music')
+        //- label(for="name") Name: 
+        //- input(name='name')
+        br
+        input#file(type='file', name="music")
         input(type='submit')
-    audio(controls)
-        source(src="http://localhost:8080/upload", type="audio/mpeg")
-    audio(controls)
-        source(src="https://vnno-zn-5-tf-mp3-s1-zmp3.zadn.vn/0287cab2fef517ab4ee4/4725938721176572736?authen=exp=1573652377~acl=/0287cab2fef517ab4ee4/*~hmac=517edf69470feb7aeed6afd1ef766760&filename=Hong-Nhan-Jack.mp3", type="audio/mpeg")
+    each val, index in data
+        p name: #{val.filename} id: #{val._id}
+        audio(controls, id=`audio${index}`)
+            source(src=`http://localhost:8080/music/${val._id}`)
+    button(onclick="playaudio()") Play
+        //- ObjectId("5dd12752a08d34be2223e4eb")
+    script. 
+        function playaudio() {
+            const audio = document.getElementById('audio0')
+            audio.play()
+            alert('hihi')
+        }
